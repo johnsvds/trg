@@ -118,7 +118,7 @@ Using the microservice of MongoDB I created two databases; *flee*, which is used
 
 ## How to run it
 
-1. To run mongodb, kafka and zookeeper go to the directory *trg* and run:
+1. To run mongodb, kafka and zookeeper go to the directory *root* and run:
 ```
 docker-compose up -d
 ```
