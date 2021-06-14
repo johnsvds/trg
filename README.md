@@ -109,7 +109,7 @@ The simulator follows the step below:
 * pymongo
 
 PolicyMaker runs a flask API to expose the penalty of the drivers and a Kafka consumer to consume message from the simulator. Due to the fact that they cannot run using the same thread, the main thread is assigned to flask and a secondary thread is assigned to the consumer.
-When the consumer receives a message 3 services are utilized. The first one adds the new heartbeat in the MongoDB in the collection *trips*. **Note the DB of the microservice A and the microservice B are two different dbs**.
+When the consumer receives a message 3 services are utilized. The first one adds the new heartbeat in the MongoDB in the collection *trips*. **Note the DB of the microservice A and the microservice C are two different dbs**.
 The second service adds a driver in the DB in the collection *drivers*, initializes their score to 0 and assigns them the trip.
 Lastly, the last service calculates the penalty and updates the appropriate field in the DB.
 
