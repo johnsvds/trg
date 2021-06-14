@@ -59,7 +59,7 @@ Lastly, there is a Kafka producer which sends the message for the simulation to 
 * confluent-kafka
 
 
-The simmulator utilizes a kafka consumer which receives a json file with the following stracture:
+The simmulator utilizes a kafka consumer which receives a json file with the following structure:
 ```json
 {
     "trip_id": "bbd0e608d3b0488098cce7700e415c69", 
@@ -84,15 +84,7 @@ The simulator follows the step below:
 7. We calculate how much the latitude and longitude of the car should be increased every interval in order for the trip to finish after the specified duration
 8. In every interval a random value is added to the speed of the car. The speed cannot be less than 0
 9. In every interval the coordinations are increased by the value that is calculated at the previous steps.
-10. In every interval a JSON with the following structure is sent to a Kafka topic. For every API call that is received a new instance of the DB is initialized. This way the application can scale better than having just one DB instance passing it around the different APIs.
-To build the application, flask blueprints have been used. Blueprints facilitate the readability, scalability and maintainability of the application especially when the application becomes very large.
-To pass different arguments with the API calls I used reqparse. To make the code cleaner, Parser is a different file to my design that uses different initializers depending on the use case. Thus, there are three different parsers (car_parser, driver_parser, trip_parser), each for every API.
-
-In folder services, it is written all the logic of the app. There are three services files (car_services.py, driver_services.py and trip_service.py) one for each instance.
-
-In folder models, there are all the models of the system (car, driver, trip). To build the model, I used *pydantic* which helps in mapping JSON with classes and facilitates the easy and fast transformation of an object to dictionary (even with nested objects). For cars and drivers, there is also an Enum class that indicates if the driver or the car is available to be assigned for a trip.
-
-Lastly, there is a Kafka producer which sends the message for the simulation to start.
+10. In every interval a JSON with the following structure is sent to a Kafka topic. 
 
 ```json
 {
@@ -106,6 +98,8 @@ Lastly, there is a Kafka producer which sends the message for the simulation to 
         }
     }
 ```
+
+
 
 ### 3 PolicyMaker
 #### Core Technologies Used
@@ -144,7 +138,7 @@ python3 main.py
 ```
 http://0.0.0.0:8000/api/cars
 ```
-passin the following json
+passing the following json
 ```json
 {
 	"brand":"opel",
@@ -156,7 +150,7 @@ passin the following json
 ```
 http://0.0.0.0:8000/api/drivers
 ```
-passin the following json
+passing the following json
 ```json
 {
 	"first_name":"kostas",
@@ -168,7 +162,7 @@ passin the following json
 ```
 http://0.0.0.0:8000/api/trips
 ```
-passin the following json **(driver_id and car_id should be replaced with the ones produced in the earlier step)**
+passing the following json **(driver_id and car_id should be replaced with the ones produced in the earlier step)**
 ```json
 {
 	"driver_id":"",
