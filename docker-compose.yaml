@@ -1,0 +1,51 @@
+version: "3"
+services:
+
+  zookeeper:
+    image: 'wurstmeister/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'wurstmeister/kafka:latest'
+    ports:
+      - target: 9094
+        published: 9094
+        protocol: tcp
+        mode: host
+    environment:
+      HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://127.0.0.1:9094
+      KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+    depends_on:
+      - zookeeper
+      
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: yannis
+      MONGO_INITDB_ROOT_PASSWORD: sousami-anoikse
+    volumes:
+    - ./data:/data/db
+    ports:
+    - 27017:27017
+    restart: unless-stopped
+
+  # microsevicea:
+  #   image: "microservicea:2"
+  #   ports:
+  #     - "9001:8000"
+  #   depends_on:
+  #     - mongodb 
+  #     - kafka
+
+  # microseviceb:
+  #   image: "microserviceb:1"
+  #   # ports:
+  #     # - "9002:8000"

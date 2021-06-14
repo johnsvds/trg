@@ -1,0 +1,9 @@
+Flask
+flask-cors
+Flask-API
+Flask-Restful
+pymongo
+python-dotenv
+dnspython
+pydantic
+confluent-kafka
