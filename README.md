@@ -117,6 +117,8 @@ Lastly, the last service calculates the penalty and updates the appropriate fiel
 Using the microservice of MongoDB I created two databases; *flee*, which is used by microserviceA, and *penalty* which is used by microservice C. Database *flee* is used to store cars, drivers and trips. Database *penalty* has two collections; *drivers* and *trips*. In collection *drivers*, it is stored for each driver, their driver_id, penalty, and the ids of their trips. In collection *trips*, for every trip it stored, trip id, driver id, car id as well as all the heartbeats that have been sent for this trip. Heartbeat includes the speed and position of the simulated car.
 
 ## How to run it
+**The microservices A B and C works correctly but they need to run from the host machine**
+
 
 1. To run mongodb, kafka and zookeeper go to the directory *root* and run:
 ```
